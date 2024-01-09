@@ -226,9 +226,7 @@ public class ObstructionGame {
 
         if (j > 0 && i < rowsCount - 1 && gameMoves.charAt(index + colsCount - 1) != emptySpot) return false; //jos-stanga
 
-        if (j < colsCount - 1 && i < rowsCount - 1 && gameMoves.charAt(index + colsCount + 1) != emptySpot) return false; //jos-dreapta
-
-        return true;
+        return j >= colsCount - 1 || i >= rowsCount - 1 || gameMoves.charAt(index + colsCount + 1) == emptySpot; //jos-dreapta
     }
 
     public int findBestScore(int depth){
