@@ -9,8 +9,6 @@ public class ObstructionGame {
     private static final char emptySpot = '_';
     private static final String VALID_O_MOVES = "Oo0";
     private static final String VALID_X_MOVES = "Xx";
-//    private char computer = 'O';
-//    private char human = 'X';
 
     @Getter
     private byte colsCount = 0;
@@ -25,7 +23,7 @@ public class ObstructionGame {
     private boolean isComputerMovingFirst = false;
 
     @Getter
-    private List<List<Character>> board;
+    private final List<List<Character>> board;
 
     @Getter
     private List<String> oPositions;
@@ -126,9 +124,7 @@ public class ObstructionGame {
         if (i < rowsCount - 1 && j > 0 && !board.get(i+1).get(j-1).equals(emptySpot)) return false;
 
         // Right-bottom value check
-        if (i < rowsCount - 1 && j < colsCount - 1 && !board.get(i+1).get(j+1).equals(emptySpot)) return false;
-
-        return true;
+        return i >= rowsCount - 1 || j >= colsCount - 1 || board.get(i + 1).get(j + 1).equals(emptySpot);
     }
 
     public static void isValidFormat(String gameMoves){
@@ -165,15 +161,13 @@ public class ObstructionGame {
             throw new IllegalArgumentException("Invalid moves count");
         }
 
-        long[] values = {xCount, oCount};
-
-        return values;
+        return new long[]{xCount, oCount};
     }
 
     public static BoardConfig createBoard(
             String gameMoves,
-            int colsCount,
-            int rowsCount
+            int rowsCount,
+            int colsCount
     ){
 
         List<List<Character>> board = new ArrayList<>();
@@ -192,7 +186,7 @@ public class ObstructionGame {
 
                     if (!isValid) {
                         throw new IllegalArgumentException("Invalid spot");
-                    };
+                    }
                 }
 
                 if(VALID_O_MOVES.contains(Character.toString(move))){
@@ -237,78 +231,7 @@ public class ObstructionGame {
         return true;
     }
 
-    public static int minimax(
-            ObstructionGame game,
-            int depth,
-            boolean isMaximizing,
-            int alpha,
-            int beta) {
-
-        if (game.isFinished()) {
-            return game.BestScore(depth);
-        }
-
-        if (isMaximizing){
-            int bestScore = Integer.MIN_VALUE;
-
-            for (int i = 0; i < game.getRowsCount(); i++) {
-                for (int j = 0; j < game.getColsCount(); j++)
-                {
-                    if (game.isPositionEmpty(i,j) && game.isPositionValid(i, j))
-                    {
-                        game.makeComputerMove(i, j);
-                        int score = minimax(game, depth + 1, false, alpha,
-                                beta);
-                        game.unsetMove(i, j);
-
-                        bestScore = Math.max(bestScore, score);
-                        alpha = Math.max(alpha, score);
-
-                        if (beta <= alpha) {
-                            break;
-                        }
-
-                    }
-                }
-
-                if (beta <= alpha) {
-                    break;
-                }
-            }
-
-            return bestScore;
-        }
-        else {
-            int bestScore = Integer.MAX_VALUE;
-
-            for (int i = 0; i < game.getRowsCount(); i++) {
-
-                for (int j = 0; j < game.getColsCount(); j++) {
-
-                    if (game.isPositionValid(i,j) && game.isPositionEmpty(i, j)) {
-                        game.makeHumanMove(i, j);
-                        int score = minimax(game, depth + 1, true, alpha, beta);
-                        game.unsetMove(i, j);
-
-                        bestScore = Math.min(bestScore, score);
-                        beta = Math.min(beta, score);
-
-                        if (beta <= alpha) {
-                            break;
-                        }
-                    }
-                }
-
-                if (beta <= alpha) {
-                    break;
-                }
-            }
-
-            return bestScore;
-        }
-    }
-
-    public int BestScore(int depth){
+    public int findBestScore(int depth){
         int xCount = 0;
         int oCount = 0;
 
@@ -341,34 +264,4 @@ public class ObstructionGame {
 
         return score;
     }
-
-//    public static void checkOddSizedBoard(ObstructionGame game){
-//        if (game.checkOddSizedBoard() && game.IsComputerFirstMove())
-//        {
-//            if (game.IsBoardEmpty()) return Task.FromResult(game.CenterSpot());
-//
-//            for (int i = 0; i < game.OccupiedSpots.Count; i++)
-//            {
-//                int rowIndex = int.Parse(game.OccupiedSpots[i][0].ToString());
-//                int colIndex = int.Parse(game.OccupiedSpots[i][1].ToString());
-//
-//                int adjacentRowIndex = game.RowsCount - rowIndex - 1;
-//                int adjacentColIndex = game.ColsCount - colIndex - 1;
-//
-//                if (game.IsSpotEmptyAndValid(adjacentRowIndex, adjacentColIndex))
-//                {
-//                    game.MakeComputerMove(adjacentRowIndex, adjacentColIndex);
-//
-//                    string message = $"{adjacentRowIndex}{adjacentColIndex}";
-//
-//                    if (game.IsFinished()) return Task.FromResult($"{message}:FINAL");
-//
-//                    return Task.FromResult(message);
-//                }
-//
-//            }
-//        }
-//
-//    }
-
 }
