@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-	const BASE_URL = "http://localhost:8081/api";
+	const BASE_URL = "https://obstruction-backend-production.up.railway.app/api";
 	const ERROR_MESSAGE = "EROARE_TABLA";
 	const FINAL_MESSAGE = "FINAL";
 	const NOT_FOUND_MESSAGE = "NU_EXISTA";
