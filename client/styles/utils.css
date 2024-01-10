@@ -9,7 +9,7 @@
 }
 
 .btn {
-	--width: 80px;
+	--width: 90px;
 	min-width: var(--width);
 	justify-self: flex-end;
 	padding: var(--p-1) var(--p-2);

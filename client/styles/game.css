@@ -66,6 +66,27 @@
 	align-self: flex-end;
 }
 
-.points {
-	display: inline;
+@media (width < 648px) {
+	.game-container {
+		grid-template-columns: auto auto;
+		grid-template-rows: 1fr auto auto;
+	}
+	.board-game {
+		grid-column: 1/-1;
+		grid-row: 1/2;
+		align-self: flex-start;
+	}
+	.score {
+		grid-column: 1/2;
+		grid-row: 2/-1;
+		align-self: flex-start;
+	}
+	.play {
+		grid-column: 2/3;
+		grid-row: 2/3;
+	}
+	.reset {
+		grid-column: 2/3;
+		grid-row: 3/4;
+	}
 }

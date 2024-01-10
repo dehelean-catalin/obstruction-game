@@ -254,19 +254,13 @@ function createBoard(rowsCount, colsCount) {
 }
 
 function isPositionAvailable(target) {
-	if (target.tagName.toLowerCase() !== "div") {
+	const childrenCount = Array.from(target.children).length;
+	const isBoardCell = target.getAttribute("data-cell");
+
+	if (childrenCount || !isBoardCell) {
 		return false;
 	}
 
-	if (target.querySelector("p")) {
-		console.log("Position is taken by X");
-		return false;
-	}
-
-	if (target.querySelector("circle")) {
-		console.log("Position is taken by 0");
-		return false;
-	}
 	return true;
 }
 
