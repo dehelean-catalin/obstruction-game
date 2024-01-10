@@ -1,13 +1,13 @@
 .game-container {
 	display: grid;
 	grid-template-columns: 1fr auto auto;
-	grid-template-rows: 1fr;
-	gap: var(--m-2);
+	grid-template-rows: auto 1fr auto;
+	gap: var(--p-2) var(--m-2);
 }
 
 .board-game {
 	grid-column: 1/2;
-	grid-row: 1/-1;
+	grid-row: 1/4;
 	align-self: flex-start;
 }
 
@@ -16,6 +16,9 @@
 }
 
 .board-cell {
+	flex: 1;
+	aspect-ratio: 1;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -23,20 +26,17 @@
 	border: 1px solid black;
 }
 
-.small {
-	flex: 0 0 min(80px, 10vw);
-	height: min(80px, 10vw);
-}
-
-.big {
-	flex: 0 0 min(100px, 14vw);
-	height: min(100px, 14vw);
-}
-
 .zero,
 .cross {
 	height: min(70px, 9vw);
 	max-width: min(70px, 9vw);
+}
+
+.pending-message {
+	height: 20px;
+	font-weight: 600;
+	grid-column: 2/4;
+	grid-row: 2/3;
 }
 
 .score {
@@ -46,23 +46,25 @@
 
 	border: 1px solid gray;
 	border-radius: 4px;
-	padding: var(--p-2);
+	padding: var(--p-3);
+
+	font-size: 1.25em;
 
 	& .title {
-		font-size: 1.5em;
+		font-size: 1.25em;
 		font-weight: bold;
 		margin-bottom: var(--p-2);
 	}
 }
 .reset {
 	grid-column: 2/3;
-	grid-row: 1/2;
+	grid-row: 3/4;
 	align-self: flex-end;
 }
 
 .play {
 	grid-column: 3/4;
-	grid-row: 1/2;
+	grid-row: 3/4;
 	align-self: flex-end;
 }
 

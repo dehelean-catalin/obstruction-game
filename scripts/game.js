@@ -37,6 +37,7 @@
 	const board = createBoard(rowsCount, colsCount);
 	const playBtn = document.querySelector("[data-control=play]");
 	const resetBtn = document.querySelector("[data-control=reset]");
+	const pendingElement = document.querySelector("[data-message=pending]");
 
 	if (isComputerPlayingFirst && isBoardEmpty) {
 		makeComputerMove();
@@ -74,13 +75,13 @@
 
 		try {
 			isFetchPending = true;
-			console.log(isFetchPending);
+			pendingElement.textContent = "Computer is thinking...";
+
 			data = await fetchData(`${BASE_URL}?formula=${formula}`);
 		} finally {
 			isFetchPending = false;
+			pendingElement.textContent = "";
 		}
-
-		console.log(isFetchPending);
 
 		let showEndGameMessage = false;
 
@@ -120,11 +121,12 @@
 	async function makeComputerMove() {
 		let data;
 		isFetchPending = true;
-
+		pendingElement.textContent = "Computer is thinking...";
 		try {
 			data = await fetchData(`${BASE_URL}?formula=${formula}`);
 		} finally {
 			isFetchPending = false;
+			pendingElement.textContent = "";
 		}
 
 		if (data === ERROR_MESSAGE) {
