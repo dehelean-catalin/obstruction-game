@@ -24,6 +24,7 @@
 	let playerMove = "X";
 	let computerMove = "O";
 	const isComputerPlayingFirst = firstPlayer === "no";
+	let isFetchPending = false;
 
 	if (isComputerPlayingFirst) {
 		computerMove = "X";
@@ -46,6 +47,10 @@
 	playBtn.addEventListener("click", playAgain);
 
 	async function makePlayerMove(e) {
+		if (isFetchPending) {
+			return;
+		}
+
 		if (!isPositionAvailable(e.target)) {
 			return;
 		}
@@ -65,7 +70,18 @@
 
 		e.target.append(playerElement);
 
-		let data = await fetchData(`${BASE_URL}?formula=${formula}`);
+		let data;
+
+		try {
+			isFetchPending = true;
+			console.log(isFetchPending);
+			data = await fetchData(`${BASE_URL}?formula=${formula}`);
+		} finally {
+			isFetchPending = false;
+		}
+
+		console.log(isFetchPending);
+
 		let showEndGameMessage = false;
 
 		if (data.includes(NOT_FOUND_MESSAGE)) {
@@ -102,7 +118,14 @@
 	}
 
 	async function makeComputerMove() {
-		const data = await fetchData(`${BASE_URL}?formula=${formula}`);
+		let data;
+		isFetchPending = true;
+
+		try {
+			data = await fetchData(`${BASE_URL}?formula=${formula}`);
+		} finally {
+			isFetchPending = false;
+		}
 
 		if (data === ERROR_MESSAGE) {
 			return;
@@ -184,7 +207,6 @@ function createPlayerElemet() {
 }
 
 function updateFormula(formula, index, move) {
-	console.log(formula);
 	const newFormula = formula.split("");
 	newFormula[index] = move;
 
@@ -193,7 +215,8 @@ function updateFormula(formula, index, move) {
 
 function updateElement(index, element) {
 	const cellElement = document.querySelector(`[data-cell='${index}']`);
-	cellElement.append(element);
+
+	cellElement?.append(element);
 }
 
 function calculateFormulaIndex(currentPosition, colsCount) {
@@ -262,6 +285,6 @@ async function fetchData(url) {
 
 		return data;
 	} catch (error) {
-		console.log(error);
+		return error.message;
 	}
 }

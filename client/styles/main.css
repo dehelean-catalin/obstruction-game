@@ -5,6 +5,7 @@
 	--p-2: 0.5rem;
 	--p-3: 0.75rem;
 	--p-4: 1rem;
+	--p-5: 1.5rem;
 	--m-2: 2rem;
 
 	--primary-bg-color: rgb(224, 224, 224);
@@ -59,6 +60,10 @@ input {
 	display: grid;
 	flex-direction: column;
 	gap: var(--p-4);
+
+	h1 {
+		margin-top: var(--m-2);
+	}
 
 	& .field {
 		display: flex;

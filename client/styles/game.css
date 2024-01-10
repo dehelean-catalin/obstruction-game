@@ -32,18 +32,11 @@
 	flex: 0 0 min(100px, 14vw);
 	height: min(100px, 14vw);
 }
+
 .zero,
 .cross {
 	height: min(70px, 9vw);
 	max-width: min(70px, 9vw);
-
-	& path {
-		stroke: blue;
-	}
-}
-
-.zero path {
-	stroke: red !important;
 }
 
 .score {
