@@ -5,10 +5,34 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 
-		<script src="game.js" defer></script>
-		<link rel="stylesheet" href="game.css" />
+		<link rel="stylesheet" href="styles/game.css" />
+		<link rel="stylesheet" href="styles/main.css" />
+		<link rel="stylesheet" href="styles/utils.css" />
+
+		<script src="scripts/game.js" defer></script>
 	</head>
 	<body>
-		<div data-board></div>
+		<div class="container game-container">
+			<div class="board-game" data-board></div>
+			<div class="score">
+				<p class="title">Total Score</p>
+				<div>
+					<span data-player-name></span>
+					<span data-score="player"></span>
+				</div>
+
+				<div>
+					Computer:
+					<span data-score="computer"></span>
+				</div>
+			</div>
+
+			<button type="button" class="btn reset" data-control="reset">
+				Reset Score
+			</button>
+			<button type="button" class="btn play" data-control="play">
+				Play Again
+			</button>
+		</div>
 	</body>
 </html>

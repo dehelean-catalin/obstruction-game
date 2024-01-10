@@ -3,12 +3,11 @@
 (function () {
 	const form = document.querySelector("[data-form='form']");
 
-	const formData = new FormData(form);
-
 	function handleSubmit(e) {
 		e.preventDefault();
+		const formData = new FormData(form);
 
-		var gridSize = formData.get("grid-size");
+		const gridSize = formData.get("grid-size");
 
 		const size = generateMoves(gridSize);
 		const gameMoves = createMoves(size);
@@ -16,7 +15,7 @@
 		formData.set("formula", gridSize + gameMoves);
 		formData.delete("grid-size");
 
-		var queryString = "?" + new URLSearchParams(formData).toString();
+		const queryString = "?" + new URLSearchParams(formData).toString();
 
 		window.location.href = "game.html" + queryString;
 	}
