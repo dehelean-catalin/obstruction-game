@@ -128,15 +128,10 @@
 
 	function playAgain() {
 		formula = urlSearchParams.get("formula");
-		const paragraphs = Array.from(board.getElementsByTagName("p"));
-		const svgs = Array.from(board.getElementsByTagName("svg"));
+		const imgs = Array.from(board.getElementsByTagName("img"));
 
-		for (let i = 0; i < paragraphs.length; i++) {
-			paragraphs[i].parentNode.removeChild(paragraphs[i]);
-		}
-
-		for (let i = 0; i < svgs.length; i++) {
-			svgs[i].parentNode.removeChild(svgs[i]);
+		for (let i = 0; i < imgs.length; i++) {
+			imgs[i].parentNode.removeChild(imgs[i]);
 		}
 	}
 })();
@@ -167,32 +162,25 @@ function checkEmptyBoard(positions) {
 }
 
 function createComputerElement() {
-	const svgElement = document.createElementNS(
-		"http://www.w3.org/2000/svg",
-		"svg"
-	);
-	svgElement.setAttribute("width", "100");
-	svgElement.setAttribute("height", "100");
+	const circleElement = document.createElement("img");
+	circleElement.setAttribute("src", "assets/circle.svg");
+	circleElement.setAttribute("height", "70");
+	circleElement.setAttribute("width", "70");
+	circleElement.setAttribute("alt", "");
+	circleElement.classList.add("zero");
 
-	const circleElement = document.createElementNS(
-		"http://www.w3.org/2000/svg",
-		"circle"
-	);
-	circleElement.setAttribute("cx", "50");
-	circleElement.setAttribute("cy", "50");
-	circleElement.setAttribute("r", "50");
-	circleElement.setAttribute("fill", "blue");
-
-	svgElement.appendChild(circleElement);
-
-	return svgElement;
+	return circleElement;
 }
 
 function createPlayerElemet() {
-	const playerElement = document.createElement("p");
-	playerElement.classList.add("cross");
+	const crossElement = document.createElement("img");
+	crossElement.setAttribute("src", "assets/cross.svg");
+	crossElement.setAttribute("height", "70");
+	crossElement.setAttribute("width", "70");
+	crossElement.setAttribute("alt", "");
+	crossElement.classList.add("zero");
 
-	return playerElement;
+	return crossElement;
 }
 
 function updateFormula(formula, index, move) {

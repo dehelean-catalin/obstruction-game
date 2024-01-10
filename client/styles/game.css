@@ -3,9 +3,6 @@
 	grid-template-columns: 1fr auto auto;
 	grid-template-rows: 1fr;
 	gap: var(--m-2);
-
-	/* min-width: var(--screen-sm);
-	width: fit-content !important; */
 }
 
 .board-game {
@@ -19,7 +16,10 @@
 }
 
 .board-cell {
-	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	border: 1px solid black;
 }
 
@@ -32,31 +32,18 @@
 	flex: 0 0 min(100px, 14vw);
 	height: min(100px, 14vw);
 }
-
+.zero,
 .cross {
-	margin: auto;
-	position: relative;
-	left: 50%;
-	margin: auto;
-	height: 100%;
+	height: min(70px, 9vw);
+	max-width: min(70px, 9vw);
+
+	& path {
+		stroke: blue;
+	}
 }
 
-.cross::before {
-	content: "";
-	display: block;
-	border: 3px solid black;
-	height: 90%;
-	transform: rotate(-45deg);
-	position: absolute;
-}
-
-.cross::after {
-	content: "";
-	display: block;
-	border: 3px solid black;
-	height: 90%;
-	transform: rotate(45deg);
-	position: absolute;
+.zero path {
+	stroke: red !important;
 }
 
 .score {
